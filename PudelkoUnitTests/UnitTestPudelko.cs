@@ -449,7 +449,44 @@ namespace PudelkoUnitTests
 
         #region Pole, Objêtoœæ ===================================
         // ToDo
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(3, UnitOfMeasure.meter, 0.03)]
+        [DataRow(10, UnitOfMeasure.meter, 0.1)]
+        [DataRow(5, UnitOfMeasure.centimeter, 0.0005)]
+        [DataRow(800, UnitOfMeasure.centimeter, 0.08)]
+        [DataRow(1, UnitOfMeasure.milimeter, 0.00001)]
+        [DataRow(900, UnitOfMeasure.milimeter, 0.009)]
+        public void Volume_1param(double a, UnitOfMeasure unit, double expectedValue)
+        {
+            var p = new Pudelko(a, unit: unit);
+            Assert.AreEqual(expectedValue, p.Objetosc);
+        }
 
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(1, 9, UnitOfMeasure.meter, 0.03)]
+        [DataRow(10, 10, UnitOfMeasure.meter, 0.1)]
+        [DataRow(23, 50, UnitOfMeasure.centimeter, 0.0005)]
+        [DataRow(340, 3, UnitOfMeasure.centimeter, 0.08)]
+        [DataRow(1500, 404, UnitOfMeasure.milimeter, 0.00001)]
+        [DataRow(90, 10, UnitOfMeasure.milimeter, 0.009)]
+        public void Volume_2param(double a, double b, UnitOfMeasure unit, double expectedValue)
+        {
+            var p = new Pudelko(a, unit: unit);
+            Assert.AreEqual(expectedValue, p.Objetosc);
+        }
+
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(1, 9, UnitOfMeasure.meter, 0.03)]
+        [DataRow(10, 10, UnitOfMeasure.meter, 0.1)]
+        [DataRow(23, 50, UnitOfMeasure.centimeter, 0.0005)]
+        [DataRow(340, 3, UnitOfMeasure.centimeter, 0.08)]
+        [DataRow(1500, 404, UnitOfMeasure.milimeter, 0.00001)]
+        [DataRow(90, 10, UnitOfMeasure.milimeter, 0.009)]
+        public void Volume_3param(double a, double b, double c, UnitOfMeasure unit, double expectedValue)
+        {
+            var p = new Pudelko(a, unit: unit);
+            Assert.AreEqual(expectedValue, p.Objetosc);
+        }
         #endregion
 
         #region Equals ===========================================
