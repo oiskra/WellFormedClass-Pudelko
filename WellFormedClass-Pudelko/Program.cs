@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WellFormedClass
 {
@@ -6,30 +7,56 @@ namespace WellFormedClass
     {
         static void Main(string[] args)
         {
-            try
+            List<Pudelko> list = new() { 
+                new Pudelko(12,3,60, UnitOfMeasure.centimeter),
+                new Pudelko(1, 3, 6),
+                new Pudelko(42, 150, UnitOfMeasure.milimeter),
+                new Pudelko(1348, UnitOfMeasure.milimeter),
+                new Pudelko(10, UnitOfMeasure.meter),
+            };
+
+            Console.WriteLine("Unsorted:");
+            foreach (var item in list)
             {
-                var p = new Pudelko (1001, 100, 2500, unit: UnitOfMeasure.milimeter);
-                var p1 = new Pudelko(250, 100.1, 10, unit: UnitOfMeasure.centimeter);
-                if (p.Equals(p1)) Console.WriteLine("są równe");
-                else Console.WriteLine("nie są równe");
-
-                var test = new Pudelko(1, unit: UnitOfMeasure.milimeter);
-                Console.WriteLine("obj" + p.Objetosc);
-                
-                Console.WriteLine(p.A);
-                Console.WriteLine(p.B);
-                Console.WriteLine(p.C);
-                Console.WriteLine();
-                Console.WriteLine(p.ToString("mm"));
-                Console.WriteLine(p.ToString("cm"));
-                Console.WriteLine(p.ToString("m"));
-                Console.WriteLine(p.ToString(null));
-
+                Console.WriteLine($"{item} volume: {item.Objetosc} area: {item.Pole}");
             }
-            catch (Exception e)
+
+            list.Sort(ComparePudelko);
+            
+            Console.WriteLine();
+            Console.WriteLine("Sorted:");
+            foreach (var item in list)
             {
-                Console.WriteLine(e.Message);
-            } 
+                Console.WriteLine($"{item} volume: {item.Objetosc} area: {item.Pole}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Compression:");
+            Console.WriteLine("------------------------------------------");
+            foreach (var item in list)
+            {
+                var p = item.Kompresuj();
+                Console.WriteLine($"Input: {item} volume: {item.Objetosc}");
+                Console.WriteLine($"Compressed: {p} volume: {p.Objetosc}");
+                Console.WriteLine("------------------------------------------");
+            }
+
+        }
+
+        static int ComparePudelko(Pudelko p1, Pudelko p2)
+        {
+            int volumeValue = p1.Objetosc.CompareTo(p2.Objetosc);
+            int areaValue = p1.Pole.CompareTo(p2.Pole);
+            
+            if (volumeValue != 0) 
+                return volumeValue;
+            else
+            {
+                if (areaValue != 0)
+                    return areaValue;
+                else
+                    return p1.A + p1.B + p1.C > p2.A + p2.B + p2.C ? 1 : -1;
+            }   
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WellFormedClass
 {
     public sealed class Pudelko : IFormattable, IEquatable<Pudelko>, IEnumerable
     {
-        private readonly double _a;
+        private readonly double _a; 
         private readonly double _b;
         private readonly double _c;
         public double A
@@ -27,7 +27,7 @@ namespace WellFormedClass
             {
                 if (Unit == UnitOfMeasure.milimeter) return _b / 1000;
                 else if (Unit == UnitOfMeasure.centimeter) return _b / 100;
-                else return _b;
+                else return _b;            
             }
         }
         public double C
@@ -40,20 +40,8 @@ namespace WellFormedClass
             }
         }
         public readonly UnitOfMeasure Unit; 
-        public double Pole 
-        {
-            get 
-            { 
-                return Math.Round(2 * (A * B +  B * C +  A * C), 6); 
-            }
-        } 
-        public double Objetosc 
-        {
-            get 
-            { 
-                return Math.Round(A * B * C, 9); 
-            }
-        } 
+        public double Pole { get => Math.Round(2 * (A * B + B * C + A * C), 6); }
+        public double Objetosc { get => Math.Round(A * B * C, 9); }
         public static bool operator ==(Pudelko p1, Pudelko p2) 
             => p1.Equals(p2);
         public static bool operator !=(Pudelko p1, Pudelko p2) 
@@ -91,10 +79,10 @@ namespace WellFormedClass
         #region constructors
         public Pudelko(double a, double b, double c, UnitOfMeasure unit = UnitOfMeasure.meter)
         {
-            Unit = unit;
+            Unit = unit;      
             _a = a;
             _b = b;
-            _c = c;
+            _c = c;            
 
             if (A > 10 || B > 10 || C > 10) throw new ArgumentOutOfRangeException();
             else if (A < 0.001 || B < 0.001 || C < 0.001) throw new ArgumentOutOfRangeException();
